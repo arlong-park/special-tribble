@@ -26,10 +26,6 @@ jobs:
         with:
           node-version: '18'
       - run: |
-          npm install -g create-react-app
-          npx create-react-app my-react-app
-          cd my-react-app
-          npm run install
-          npm run build
+          apt update && apt install curl
 
       
