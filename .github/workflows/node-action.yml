@@ -1,4 +1,4 @@
-name: fe-deployment
+name: node-action
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
     - name: Set Node environment
       uses: actions/setup-node@v3
       with: 
-        node-version: 10.19.0
+        node-version: 18.1.0
         cache: 'yarn'
         cache-dependency-path: |
           package.json
