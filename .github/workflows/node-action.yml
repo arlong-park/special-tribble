@@ -4,24 +4,19 @@ on:
   push:
     branches:
       - main
+      - dev 
   workflow_dispatch:      
 
 jobs:
-  deploy:
+  deploy-dev:
+    needs:
+      branch:
+        - dev
     runs-on: ubuntu-22.04
 
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
-
-    - name: Restore cached Primes
-      id: cache-primes-restore
-      uses: actions/cache/restore@v3
-      with:
-        path: |
-          react-app/package.json
-          react-app/node_modules
-        key: ${{ runner.os }}-primes
     
     - name: Set Node environment
       uses: actions/setup-node@v3
@@ -37,12 +32,29 @@ jobs:
         cd react-app
         yarn install
         yarn build
+
+  deploy-main:
+    needs:
+      branch:
+        - main
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
     
-    - name: Save Primes
-      id: cache-primes-save
-      uses: actions/cache/save@v3
-      with:
-        path: |
+    - name: Set Node environment
+      uses: actions/setup-node@v3
+      with: 
+        node-version: 18.1.0
+        cache: 'yarn'
+        cache-dependency-path: |
           react-app/package.json
           react-app/node_modules
-        key: ${{ steps.cache-primes-restore.outputs.cache-primary-key }}
+
+    - name : Build      
+      run: |
+        cd react-app
+        yarn install
+        yarn build
+
