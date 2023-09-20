@@ -1,17 +1,16 @@
 name: node-action
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
       - dev 
-  workflow_dispatch:      
+        
 
 jobs:
-  deploy-dev:
-    needs:
-      branch:
-        - dev
+  deploy-main:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-22.04
 
     steps:
@@ -33,10 +32,8 @@ jobs:
         yarn install
         yarn build
 
-  deploy-main:
-    needs:
-      branch:
-        - main
+  deploy-dev:
+    if: github.ref == 'refs/heads/dev'
     runs-on: ubuntu-22.04
 
     steps:
