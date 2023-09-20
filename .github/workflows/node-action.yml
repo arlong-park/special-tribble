@@ -1,0 +1,26 @@
+name: fe-deployment
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:      
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    
+    - name: Set Node environment
+      uses: actions/setup-node@v3
+      with: 
+        node-version: 10.19.0
+        cache: 'yarn'
+        cache-dependency-path: |
+          package.json
+          node_modules
+
+    - run: yarn install && yarn build       
