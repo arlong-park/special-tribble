@@ -23,7 +23,8 @@ jobs:
           react-app/package.json
           react-app/node_modules
 
-    - run: |
+    - name : Build      
+      run: |
         cd react-app
         yarn install
         yarn build       
