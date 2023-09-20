@@ -23,4 +23,7 @@ jobs:
           react-app/package.json
           react-app/node_modules
 
-    - run: yarn install && yarn build       
+    - run: |
+        cd react-app
+        yarn install
+        yarn build       
