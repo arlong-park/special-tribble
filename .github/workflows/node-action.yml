@@ -7,7 +7,6 @@ on:
       - main
       - dev 
         
-
 jobs:
   deploy-main:
     if: github.ref == 'refs/heads/main'
@@ -26,7 +25,7 @@ jobs:
           react-app/package.json
           react-app/node_modules
 
-    - name : Build      
+    - name: Build      
       run: |
         cd react-app
         yarn install
@@ -49,9 +48,15 @@ jobs:
           react-app/package.json
           react-app/node_modules
 
-    - name : Build      
+    - name: Build      
       run: |
         cd react-app
         yarn install
         yarn build
 
+    - name: Docker
+      run: |
+        docker --version
+    
+          
+        
